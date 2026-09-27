@@ -1,0 +1,253 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Visualizer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+    <header class="header">
+        <div class="logo">◈ BODY ANALYTICS</div>
+        <h1>BMI <span>Visualizer.</span></h1>
+        <p>Discover your body through an interactive experience.</p>
+    </header>
+
+    <main class="dashboard">
+
+        <section class="panel controls">
+
+            <h2>Your Information</h2>
+            <p class="subtitle">
+                Enter your measurements to create your body model.
+            </p>
+
+            <label class="field-title">Select Gender</label>
+
+            <div class="gender-options">
+                <button class="gender active" data-gender="male" type="button">
+                    <span>♂</span>
+                    Male
+                </button>
+
+                <button class="gender" data-gender="female" type="button">
+                    <span>♀</span>
+                    Female
+                </button>
+            </div>
+
+            <div class="input-group">
+                <label for="height">Your Height</label>
+                <div class="input-box">
+                    <input type="number" id="height" value="175" min="100" max="220">
+                    <span>cm</span>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="weight">Your Weight</label>
+                <div class="input-box">
+                    <input type="number" id="weight" value="70" min="25" max="300" step="0.1">
+                    <span>kg</span>
+                </div>
+            </div>
+
+            <button class="calculate-btn" id="calculate" type="button">
+                Generate My Body
+                <span>→</span>
+            </button>
+
+            <p class="error" id="error" role="alert"></p>
+
+            <div class="result" id="result">
+
+                <span class="result-label">YOUR BODY MASS INDEX</span>
+
+                <div class="bmi-number" id="bmiValue">22.9</div>
+
+                <div class="status" id="bmiStatus">Normal Weight</div>
+
+                <div class="bmi-scale">
+                    <div class="scale-marker" id="scaleMarker"></div>
+                </div>
+
+                <div class="scale-labels">
+                    <span>Underweight</span>
+                    <span>Normal</span>
+                    <span>Overweight</span>
+                    <span>Obese</span>
+                </div>
+
+                <p class="description" id="description"></p>
+
+            </div>
+
+        </section>
+
+        <section class="panel visualization">
+
+            <div class="visual-header">
+                <div>
+                    <h2>Body Visualization</h2>
+                    <p class="subtitle">Your personalized body silhouette</p>
+                </div>
+                <span class="live-badge">● LIVE MODEL</span>
+            </div>
+
+            <div class="visual-stage">
+
+                <div class="ruler" id="ruler"></div>
+
+                <div class="height-guide" id="heightGuide">
+                    <span id="heightLabel">175 cm</span>
+                </div>
+
+                <div class="person" id="person">
+                    <svg id="bodySvg"
+                         viewBox="0 0 200 400"
+                         preserveAspectRatio="none"
+                         xmlns="http://www.w3.org/2000/svg">
+
+                        <defs>
+                            <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#a9fff0"/>
+                                <stop offset="100%" stop-color="#28c7ad"/>
+                            </linearGradient>
+                        </defs>
+
+                        <g id="bodyShape" fill="url(#bodyGradient)"></g>
+                    </svg>
+                </div>
+
+                <div class="floor"></div>
+
+                <div class="empty-state" id="emptyState">
+                    <div class="empty-icon">◈</div>
+                    <p>Your body model will appear here</p>
+                </div>
+
+            </div>
+
+            <div class="visual-stats">
+
+                <div>
+                    <span>HEIGHT</span>
+                    <strong id="displayHeight">--</strong>
+                </div>
+
+                <div>
+                    <span>WEIGHT</span>
+                    <strong id="displayWeight">--</strong>
+                </div>
+
+                <div>
+                    <span>BODY TYPE</span>
+                    <strong id="displayType">--</strong>
+                </div>
+
+            </div>
+
+            <div class="insights" id="insights">
+
+                <div class="insights-header">
+                    <div>
+                        <span class="insights-tag">PERSONALIZED ANALYSIS</span>
+                        <h2>Your Body Insights</h2>
+                        <p>Useful information based on your measurements.</p>
+                    </div>
+                    <span class="insights-icon">✦</span>
+                </div>
+
+                <div class="insights-grid">
+
+                    <div class="insight-card">
+                        <div class="insight-icon green">⚖</div>
+                        <span class="insight-title">Reference Weight Range</span>
+                        <strong id="idealWeight">--</strong>
+                        <p>Based on the standard adult BMI reference range.</p>
+                    </div>
+
+                    <div class="insight-card">
+                        <div class="insight-icon purple">◎</div>
+                        <span class="insight-title">Weight Analysis</span>
+                        <strong id="weightDifference">--</strong>
+                        <p id="weightMessage">Your personalized weight information.</p>
+                    </div>
+
+                    <div class="insight-card">
+                        <div class="insight-icon blue">◷</div>
+                        <span class="insight-title">Weekly Activity</span>
+                        <strong>150–300 min</strong>
+                        <p>Moderate physical activity per week for adults.</p>
+                    </div>
+
+                    <div class="insight-card">
+                        <div class="insight-icon orange">✳</div>
+                        <span class="insight-title">Strength Training</span>
+                        <strong>2+ days</strong>
+                        <p>Include exercises for major muscle groups.</p>
+                    </div>
+
+                </div>
+
+                <div class="recommendation-box">
+
+                    <div class="recommendation-heading">
+                        <span>✦</span>
+                        <h3>Personalized Recommendations</h3>
+                    </div>
+
+                    <div class="recommendation-list">
+
+                        <div class="recommendation-item">
+                            <span class="recommendation-dot"></span>
+                            <p id="foodAdvice"></p>
+                        </div>
+
+                        <div class="recommendation-item">
+                            <span class="recommendation-dot"></span>
+                            <p id="exerciseAdvice"></p>
+                        </div>
+
+                        <div class="recommendation-item">
+                            <span class="recommendation-dot"></span>
+                            <p id="healthAdvice"></p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="health-reminder">
+                    <span>ⓘ</span>
+                    <p>
+                        These insights use adult BMI reference values.
+                        BMI is a screening measurement, not a medical diagnosis.
+                        Body composition and individual health factors also matter.
+                    </p>
+                </div>
+
+            </div>
+
+            <p class="visual-note">
+                * This body visualization is illustrative and not an exact anatomical representation.
+                BMI categories and recommendations are intended for adults.
+            </p>
+
+        </section>
+
+    </main>
+
+    <footer>
+        Designed with ♥ | Interactive BMI Experience
+    </footer>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
